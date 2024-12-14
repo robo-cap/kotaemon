@@ -58,6 +58,7 @@ class EmbeddingManager:
             FastEmbedEmbeddings,
             LCCohereEmbeddings,
             LCGoogleEmbeddings,
+            LCNvidiaEmbeddings,
             LCHuggingFaceEmbeddings,
             OpenAIEmbeddings,
             TeiEndpointEmbeddings,
@@ -70,6 +71,7 @@ class EmbeddingManager:
             LCCohereEmbeddings,
             LCHuggingFaceEmbeddings,
             LCGoogleEmbeddings,
+            LCNvidiaEmbeddings,
             TeiEndpointEmbeddings,
         ]
 

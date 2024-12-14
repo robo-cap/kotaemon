@@ -138,7 +138,7 @@ if config("OPENAI_API_KEY", default=""):
         "spec": {
             "__type__": "kotaemon.llms.ChatOpenAI",
             "temperature": 0,
-            "base_url": config("OPENAI_API_BASE", default="")
+            "base_url": config("OPENAI_API_LLM", default="")
             or "https://api.openai.com/v1",
             "api_key": config("OPENAI_API_KEY", default=""),
             "model": config("OPENAI_CHAT_MODEL", default="gpt-3.5-turbo"),
@@ -149,7 +149,7 @@ if config("OPENAI_API_KEY", default=""):
     KH_EMBEDDINGS["openai"] = {
         "spec": {
             "__type__": "kotaemon.embeddings.OpenAIEmbeddings",
-            "base_url": config("OPENAI_API_BASE", default="https://api.openai.com/v1"),
+            "base_url": config("OPENAI_API_EMBED", default="https://api.openai.com/v1"),
             "api_key": config("OPENAI_API_KEY", default=""),
             "model": config(
                 "OPENAI_EMBEDDINGS_MODEL", default="text-embedding-ada-002"
@@ -238,6 +238,14 @@ KH_EMBEDDINGS["google"] = {
         "__type__": "kotaemon.embeddings.LCGoogleEmbeddings",
         "model": "models/text-embedding-004",
         "google_api_key": config("GOOGLE_API_KEY", default="your-key"),
+    }
+}
+KH_EMBEDDINGS["nvidia"] = {
+    "spec": {
+        "__type__": "kotaemon.embeddings.LCNvidiaEmbeddings",
+        "base_url": config("NVIDIA_EMBEDDING_URL", default="https://integrate.api.nvidia.com/v1"),
+        "model": "nvidia/nv-embedqa-e5-v5",
+        "api_key": config("API_KEY", default="your-key"),
     }
 }
 # KH_EMBEDDINGS["huggingface"] = {

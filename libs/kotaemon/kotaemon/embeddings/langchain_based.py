@@ -254,3 +254,52 @@ class LCGoogleEmbeddings(LCEmbeddingMixin, BaseEmbeddings):
             raise ImportError("Please install langchain-google-genai")
 
         return GoogleGenerativeAIEmbeddings
+
+
+class LCNvidiaEmbeddings(LCEmbeddingMixin, BaseEmbeddings):
+    """Wrapper around Langchain's Nvidia GenAI embedding, focusing on key parameters"""
+
+    base_url: str = Param(
+        help="The base URL of the NIM to connect to. Format for base URL is http://host:port",
+        default="https://integrate.api.nvidia.com/v1",
+        required=True
+    )
+    api_key: str = Param(
+        help="API key (https://org.ngc.nvidia.com/setup/personal-keys)",
+        default="",
+        required=True
+    )
+    model: str = Param(
+        help="Model name to use (https://docs.nvidia.com/nim/nemo-retriever/text-embedding/latest/index.html)",  # noqa
+        default="nvidia/nv-embedqa-e5-v5",
+        required=True,
+    )
+    truncate: str = Param(
+        help="Truncate input text if it exceeds the model's context length.",
+        default="END",
+        required=False
+    )
+
+    def __init__(
+        self,
+        base_url: str = "https://integrate.api.nvidia.com/v1",
+        api_key: Optional[str] = None,
+        model: str = "nvidia/nv-embedqa-e5-v5",
+        truncate: Optional[str] = "END"
+        **params,
+    ):
+        super().__init__(
+            base_url=base_url,
+            model=model,
+            api_key=api_key,
+            truncate=truncate,
+            **params,
+        )
+
+    def _get_lc_class(self):
+        try:
+            from langchain_nvidia_ai_endpoints.embeddings import NVIDIAEmbeddings
+        except ImportError:
+            raise ImportError("Please install langchain-nvidia-ai-endpoints")
+
+        return NVIDIAEmbeddings
